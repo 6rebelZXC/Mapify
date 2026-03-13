@@ -1,5 +1,7 @@
 import { REST, Routes } from 'discord.js';
-const TOKEN = 
+import TEST from './authds.json' with {"type": "json"};
+const {tokends} = TEST;
+const CLIENT_ID = "1482073842724896959";
 
 const commands = [
   {
@@ -8,7 +10,7 @@ const commands = [
   },
 ];
 
-const rest = new REST({ version: '10' }).setToken(TOKEN);
+const rest = new REST({ version: '10' }).setToken(tokends);
 
 try {
   console.log('Started refreshing application (/) commands.');
@@ -36,4 +38,4 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 });
 
-client.login(TOKEN);
+client.login(tokends);
