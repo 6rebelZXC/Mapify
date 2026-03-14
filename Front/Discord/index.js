@@ -1,7 +1,13 @@
 import { REST, Routes } from 'discord.js';
 import TEST from './authds.json' with {"type": "json"};
+import fs from "fs"
 const {tokends} = TEST;
 const CLIENT_ID = "1482073842724896959";
+import functions from './fs.js';
+
+// 
+//
+
 
 const commands = [
   {
@@ -23,8 +29,10 @@ try {
 }
 
 import { Client, Events, GatewayIntentBits } from 'discord.js';
+const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 // Client form and / commands
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+functions(client);
+export default client;
 
 client.on(Events.ClientReady, readyClient => {
   console.log(`Logged in as ${readyClient.user.tag}!`);
@@ -39,3 +47,4 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(tokends);
+
