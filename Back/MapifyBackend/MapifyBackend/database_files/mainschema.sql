@@ -1,26 +1,78 @@
-﻿CREATE TABLE IF NOT EXISTS strat (
+﻿PRAGMA FOREIGN_KEYS = ON;
+
+CREATE TABLE IF NOT EXISTS maps (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    videourl TEXT NOT NULL
+    name TEXT NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS operator (
+CREATE TABLE IF NOT EXISTS strats (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    side TEXT NOT NULL
+    video_url TEXT NOT NULL,
+    map_id INT NOT NULL,
+    FOREIGN KEY (map_id) REFERENCES maps(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS operators (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE ,
+    side TEXT CHECK(side IN ('attack', 'defense'))
 );
 
 CREATE TABLE IF NOT EXISTS categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    side TEXT NOT NULL,
-    map TEXT NOT NULL,
-    operator_id INT NOT NULL,
-    FOREIGN KEY (operator_id) REFERENCES operator(id)
+    name TEXT NOT NULL UNIQUE,
+    side TEXT CHECK(side IN ('attack', 'defense'))
 );
 
 CREATE TABLE IF NOT EXISTS strat_categories (
-    strat_id INT,
-    category_id INT,
-    PRIMARY KEY (strat_id, category_id)
+    strat_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (strat_id, category_id),
+    FOREIGN KEY (strat_id) REFERENCES strats(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS strat_operators (
+    strat_id INT NOT NULL,
+    operator_id INT NOT NULL,
+    PRIMARY KEY (strat_id, operator_id),
+    FOREIGN KEY (strat_id) REFERENCES strats(id) ON DELETE CASCADE,
+    FOREIGN KEY (operator_id) REFERENCES operators(id) ON DELETE CASCADE
+);
+
+-- INSERT INTO maps(name)
+-- VALUES ('Oregon'),
+--        ('Consulate'),
+--        ('Bank'),
+--        ('Clubhouse'),
+--        ('Border'),
+--        ('Fortress'),
+--        ('Coastline'),
+--        ('Chalet'),
+--        ('Kafe'),
+--        ('Outback'),
+--        ('Nighthaven Labs'),
+--        ('Lair'),
+--        ('Kanal'),
+--        ('Villa'),
+--        ('Skyscraper'),
+--        ('Theme park'),
+--        ('Emerald Plains'),
+--        ('Favela'),
+--        ('Tower'),
+--        ('Yacht'),
+--        ('Presidential Plane'),
+--        ('Stadium Bravo'),
+--        ('Stadium 2020');
+-- 
+-- INSERT INTO operators(name, side)
+-- VALUES ('Ash', 'attack'),
+--        ('Nokk', 'attack'),
+--        ('Buck', 'attack'),
+--        ('Thermite', 'attack'),
+--        ('Doc', 'defense'),
+--        ('Lesion', 'defense'),
+--        ('Azami', 'defense'),
+--        ('Skopos', 'defense');

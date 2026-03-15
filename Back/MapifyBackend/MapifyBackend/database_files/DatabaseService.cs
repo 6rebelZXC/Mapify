@@ -29,16 +29,23 @@ public class DatabaseService
     public void AddStrat(Strat strat)
     {
         using SqliteConnection db = GetConnection();
-        string sql = @"INSERT INTO strat (name, videourl)
-                        VALUES (@name, @videourl);
+        string sql = @"INSERT INTO strats (name, video_url, map_id)
+                        VALUES (@name, @videoUrl, @mapId);
                         SELECT last_insert_rowid();";
         int newId = db.QuerySingle<int>(sql, new
         {
             name = strat.Name,
-            videourl = strat.VideoUrl
+            videoUrl = strat.VideoUrl,
+            mapId = strat.MapId
         });
-        // 3. Присваиваем ID нашему объекту через Reflection или изменив доступ к Id
-        // Но проще всего в классе Strat сделать Id доступным для установки внутри этого метода
-        typeof(Strat).GetProperty("Id")?.SetValue(strat, newId);
+
+        strat.SetId(newId);
+    }
+
+    public int GetMapIdByName(string mapName)
+    {
+        using SqliteConnection db = GetConnection();
+        string sql = @"SELECT id FROM maps WHERE name = @name";
+        return db.QuerySingle<int>(sql, new { name = mapName });
     }
 }
