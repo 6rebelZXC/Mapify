@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS strats (
     name TEXT NOT NULL,
     video_url TEXT NOT NULL,
     map_id INT NOT NULL,
+    description TEXT,
     FOREIGN KEY (map_id) REFERENCES maps(id)
 );
 

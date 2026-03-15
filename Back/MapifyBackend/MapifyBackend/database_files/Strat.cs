@@ -5,8 +5,8 @@ public class Strat
     public int Id { get; private set; } //ID of the strategy in the database
     public string Name { get; private set; } //Name of the strat
     public string VideoUrl { get; private set; } //URL for the video of the strat
-    
     public int MapId { get; private set; } //ID of the map
+    public string? Description { get; private set; }
 
     public Strat(string stratName, string videoUrl, int mapId)
     {
@@ -15,17 +15,23 @@ public class Strat
         MapId = mapId;
     }
     
-    public Strat(int id, string namestr, string videoUrl, int mapId)
+    public Strat(int id, string stratName, string videoUrl, int mapId, string? description)
     {
         Id = id;
-        Name = namestr;
+        Name = stratName;
         VideoUrl = videoUrl;
         MapId = mapId;
+        Description = description;
     }
 
-    public void ChangeStratName(string namestr)
+    public Strat()
     {
-        Name = namestr;
+        
+    }
+
+    public void ChangeStratName(string stratName)
+    {
+        Name = stratName;
     }
 
     public void ChangeStratVideoUrl(string url)

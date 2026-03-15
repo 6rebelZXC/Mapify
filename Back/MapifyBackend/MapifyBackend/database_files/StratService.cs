@@ -16,4 +16,9 @@ public class StratService
         Strat strat = new Strat(name, videoUrl, mapId);
         DbService.AddStrat(strat);
     }
+
+    public void GetStrat(int id)
+    {
+        
+    }
 }

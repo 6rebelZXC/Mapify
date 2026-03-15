@@ -23,7 +23,9 @@ public class DatabaseService
     public List<Strat> GetAllStrats()
     {
         using SqliteConnection db = GetConnection();
-        return db.Query<Strat>("SELECT * FROM strat").ToList();
+        string sql = "SELECT id, name, video_url AS videoUrl, map_id AS mapId, description " +
+                     "FROM strats";
+        return db.Query<Strat>(sql).ToList();
     }
 
     public void AddStrat(Strat strat)
@@ -42,10 +44,21 @@ public class DatabaseService
         strat.SetId(newId);
     }
 
+    // gets an id from maps table by name(names are unique)
     public int GetMapIdByName(string mapName)
     {
         using SqliteConnection db = GetConnection();
         string sql = @"SELECT id FROM maps WHERE name = @name";
         return db.QuerySingle<int>(sql, new { name = mapName });
+    }
+
+    //returns all the data about a strat, using its id from params. Can return null if no strat has been found with this ID
+    public Strat? GetStrat(int stratId)
+    {
+        using SqliteConnection db = GetConnection();
+        string sql = "SELECT id, name, video_url AS videoUrl, map_id AS MapId, description " +
+                     "FROM strats " +
+                     "WHERE id = @strat_id";
+        return db.QuerySingleOrDefault<Strat>(sql, new { strat_id = stratId });
     }
 }
