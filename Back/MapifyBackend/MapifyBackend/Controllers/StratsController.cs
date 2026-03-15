@@ -1,0 +1,62 @@
+﻿using MapifyBackend.database_files;
+using Microsoft.AspNetCore.Mvc;
+
+namespace MapifyBackend.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class StratsController : ControllerBase
+{
+    private readonly DatabaseService _db;
+    private readonly StratService _stratService;
+
+    public StratsController(DatabaseService db, StratService stratService)
+    {
+        _db = db;
+        _stratService = stratService;
+    }
+    
+    //Get all strats
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        var allStrats = _db.GetAllStrats();
+        return Ok(allStrats); //status 200 and JSON data
+    }
+
+    //Get 1 strat by ID
+    [HttpGet]
+    public IActionResult GetById(int id)
+    {
+        Strat? strat = _db.GetStrat(id);
+        if (strat == null)
+        {
+            return NotFound(new { message = $"Strat by ID {id} was not found" });
+        }
+
+        return Ok(strat);
+    }
+    
+    //Create strat
+    [HttpPost]
+    public IActionResult Create([FromBody] StratRequest request)
+    {
+        try 
+        {
+            _stratService.CreateStrat(request.Name, request.VideoUrl, request.MapName);
+            return Ok(new { message = "Strategy added!" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+}
+
+// Assistant class for API to understand the format of a request
+public class StratRequest
+{
+    public string Name { get; set; }
+    public string VideoUrl { get; set; }
+    public string MapName { get; set; }
+}

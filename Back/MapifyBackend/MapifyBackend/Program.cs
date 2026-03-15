@@ -1,23 +1,27 @@
-﻿using System.Text.Json;
-using MapifyBackend;
-using MapifyBackend.database_files;
-using Microsoft.EntityFrameworkCore.Storage;
+﻿using MapifyBackend.database_files;
+using Microsoft.AspNetCore.Mvc;
 
+var builder = WebApplication.CreateBuilder(args);
+
+// Initialize db
 DatabaseInitializer.EnsureDatabaseCreated();
 
-var dbService = new DatabaseService();
-var stratService = new StratService(dbService);
-// stratService.CreateStrat("cool ash rush", "youtube.com", "Oregon");
-Console.WriteLine(dbService.GetAllStrats());
-Console.WriteLine(dbService.GetStrat(1));
-Console.WriteLine(JsonSerializer.Serialize(dbService.GetAllStrats(), new JsonSerializerOptions
+// Register services
+builder.Services.AddSingleton<DatabaseService>(); // One for all time
+builder.Services.AddScoped<StratService>();     // Gets created for each request
+
+// add Cors and controllers support
+builder.Services.AddControllers();
+builder.Services.AddCors(options =>
 {
-    WriteIndented = true
-}));
+    options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 
-Console.WriteLine(JsonSerializer.Serialize(dbService.GetStrat(1), new JsonSerializerOptions
-{
-    WriteIndented = true
-}));
+var app = builder.Build();
 
+// 4. Middleware
+app.UseCors("AllowAll");
+app.MapControllers(); // Connects URL with controllers
 
+// Run server
+app.Run();
