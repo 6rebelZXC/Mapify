@@ -17,8 +17,25 @@ public class StratService
         DbService.AddStrat(strat);
     }
 
-    public void GetStrat(int id)
+    //returns a result of GetStrat(int id) method from DatabaseService
+    public Strat? GetStratId(int id)
     {
-        
+        return DbService.GetStrat(id);
+    }
+
+    //returns a result of GetAllStrats() method from DatabaseService
+    public List<Strat> GetAllStrats()
+    {
+        return DbService.GetAllStrats();
+    }
+
+    //validates if there is a strat by given ID, returns false if there is none, or calls DeleteStrat from DBService 
+    public bool DeleteStrat(int id)
+    {
+        var strat = GetStratId(id);
+        if (strat == null) return false;
+
+        DbService.DeleteStrat(id);
+        return true;
     }
 }

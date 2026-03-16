@@ -28,7 +28,7 @@ public class StratsController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
-        Strat? strat = _db.GetStrat(id);
+        Strat? strat = _stratService.GetStratId(id);
         if (strat == null)
         {
             return NotFound(new { message = $"Strat by ID {id} was not found" });
@@ -50,6 +50,13 @@ public class StratsController : ControllerBase
         {
             return BadRequest(new { error = ex.Message });
         }
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteStrat(int id)
+    {
+        if (!_stratService.DeleteStrat(id)) return NotFound(new { message = $"Strat by ID {id} was not found" });
+        return Ok(new { message = "Strategy deleted!" });
     }
 }
 
