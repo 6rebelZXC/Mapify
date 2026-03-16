@@ -25,7 +25,7 @@ public class StratsController : ControllerBase
     }
 
     //Get 1 strat by ID
-    [HttpGet]
+    [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
         Strat? strat = _db.GetStrat(id);
