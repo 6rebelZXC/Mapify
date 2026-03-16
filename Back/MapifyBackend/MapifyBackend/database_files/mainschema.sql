@@ -43,37 +43,42 @@ CREATE TABLE IF NOT EXISTS strat_operators (
     FOREIGN KEY (operator_id) REFERENCES operators(id) ON DELETE CASCADE
 );
 
--- INSERT INTO maps(name)
--- VALUES ('Oregon'),
---        ('Consulate'),
---        ('Bank'),
---        ('Clubhouse'),
---        ('Border'),
---        ('Fortress'),
---        ('Coastline'),
---        ('Chalet'),
---        ('Kafe'),
---        ('Outback'),
---        ('Nighthaven Labs'),
---        ('Lair'),
---        ('Kanal'),
---        ('Villa'),
---        ('Skyscraper'),
---        ('Theme park'),
---        ('Emerald Plains'),
---        ('Favela'),
---        ('Tower'),
---        ('Yacht'),
---        ('Presidential Plane'),
---        ('Stadium Bravo'),
---        ('Stadium 2020');
--- 
--- INSERT INTO operators(name, side)
--- VALUES ('Ash', 'attack'),
---        ('Nokk', 'attack'),
---        ('Buck', 'attack'),
---        ('Thermite', 'attack'),
---        ('Doc', 'defense'),
---        ('Lesion', 'defense'),
---        ('Azami', 'defense'),
---        ('Skopos', 'defense');
+INSERT OR IGNORE INTO maps(name)
+VALUES ('Oregon'),
+       ('Consulate'),
+       ('Bank'),
+       ('Clubhouse'),
+       ('Border'),
+       ('Fortress'),
+       ('Coastline'),
+       ('Chalet'),
+       ('Kafe'),
+       ('Outback'),
+       ('Nighthaven Labs'),
+       ('Lair'),
+       ('Kanal'),
+       ('Villa'),
+       ('Skyscraper'),
+       ('Theme park'),
+       ('Emerald Plains'),
+       ('Favela'),
+       ('Tower'),
+       ('Yacht'),
+       ('Presidential Plane'),
+       ('Stadium Bravo'),
+       ('Stadium 2020');
+
+INSERT OR IGNORE INTO operators(name, side)
+VALUES ('Ash', 'attack'),
+       ('Nokk', 'attack'),
+       ('Buck', 'attack'),
+       ('Thermite', 'attack'),
+       ('Doc', 'defense'),
+       ('Lesion', 'defense'),
+       ('Azami', 'defense'),
+       ('Skopos', 'defense');
+
+INSERT OR IGNORE INTO strats(name, video_url, map_id, description)
+VALUES ('Cool Ash Rush', 'youtube.com', '7', ''),
+       ('Thermite breach', 'linkedin.com', '2', 'cool description'),
+       ('Lesion 2f setup', 'instagram.com', '4', '')

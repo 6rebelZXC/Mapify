@@ -61,4 +61,12 @@ public class DatabaseService
                      "WHERE id = @strat_id";
         return db.QuerySingleOrDefault<Strat>(sql, new { strat_id = stratId });
     }
+
+    // Deletes a strat by given id directly from database
+    public void DeleteStrat(int id)
+    {
+        using SqliteConnection db = GetConnection();
+        string sql = "DELETE FROM strats WHERE id=:id";
+        db.Query(sql, new { id = id });
+    }
 }
