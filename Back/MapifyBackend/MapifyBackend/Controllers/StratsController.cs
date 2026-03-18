@@ -1,4 +1,5 @@
 ﻿using MapifyBackend.database_files;
+using MapifyBackend.Utility;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapifyBackend.Controllers;
@@ -56,14 +57,19 @@ public class StratsController : ControllerBase
     [HttpPost]
     public IActionResult Create([FromBody] StratRequest request)
     {
-        try 
+        try
         {
+            InputValidator.ValidateStratRequest(request);
             _stratService.CreateStrat(request.Name, request.VideoUrl, request.MapName);
             return Ok(new { message = "Strategy added!" });
         }
-        catch (Exception ex)
+        catch (ValidationException ex)
         {
             return BadRequest(new { error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = "Error creating strategy" });
         }
     }
 
