@@ -18,13 +18,13 @@ CREATE TABLE IF NOT EXISTS strats (
 CREATE TABLE IF NOT EXISTS operators (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE ,
-    side TEXT CHECK(side IN ('attack', 'defense'))
+    side TEXT CHECK(side IN ('Attack', 'Defense'))
 );
 
 CREATE TABLE IF NOT EXISTS categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
-    side TEXT CHECK(side IN ('attack', 'defense'))
+    side TEXT CHECK(side IN ('Attack', 'Defense'))
 );
 
 CREATE TABLE IF NOT EXISTS strat_categories (

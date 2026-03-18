@@ -38,4 +38,9 @@ public class StratService
         DbService.DeleteStrat(id);
         return true;
     }
+
+    public void AssignStratToCategory(int stratId, int categoryId)
+    {
+        DbService.AssignStratToCategory(stratId, categoryId);
+    }
 }

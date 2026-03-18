@@ -9,7 +9,7 @@ public class ValidationException : Exception
 
 public static class InputValidator
 {
-    public static void ValidateString(string value, string fieldName, int maxLength = 500)
+    private static void ValidateString(string value, string fieldName, int maxLength = 500)
     {
         if (string.IsNullOrWhiteSpace(value))
             throw new ValidationException($"{fieldName} is required");

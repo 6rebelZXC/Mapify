@@ -1,3 +1,5 @@
+database.db
+authds.json
 .db
 node_modules
 .env
