@@ -36,6 +36,21 @@ public class StratsController : ControllerBase
 
         return Ok(strat);
     }
+
+    [HttpGet("strats/maps/{i~d}")]
+    public IActionResult GetMapById(int id)
+    {
+        try
+        {
+            string? mapName = _db.GetMapById(id);
+            if (mapName == null) return NotFound(new { message = $"Map by id {id} not found" });
+            return Ok(mapName);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
     
     //Create strat
     [HttpPost]

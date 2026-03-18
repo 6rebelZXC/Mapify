@@ -69,4 +69,11 @@ public class DatabaseService
         string sql = "DELETE FROM strats WHERE id=:id";
         db.Query(sql, new { id = id });
     }
+
+    public string? GetMapById(int id)
+    {
+        using SqliteConnection db = GetConnection();
+        string sql = "SELECT name FROM maps WHERE id=:id";
+        return db.QuerySingleOrDefault<string>(sql, new { id = id });
+    }
 }
