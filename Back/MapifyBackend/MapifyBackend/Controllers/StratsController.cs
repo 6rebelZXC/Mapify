@@ -37,7 +37,7 @@ public class StratsController : ControllerBase
         return Ok(strat);
     }
 
-    [HttpGet("strats/maps/{i~d}")]
+    [HttpGet("strats/maps/{id}")]
     public IActionResult GetMapById(int id)
     {
         try
