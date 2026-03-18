@@ -2,5 +2,9 @@
   {
     "name": "ping",
     "description": "Replies with Pong!"
+  },
+  {
+    "name": "strats",
+    "description": "Test"
   }
 ]

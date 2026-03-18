@@ -4,21 +4,26 @@ const data = await strats.json();
 
 const strat = data.find(item => item.id === 1);
 
-const map = await fetch(`http://localhost:5000/api/strats/map/${strat.mapId}`);
+const map = await fetch(`http://localhost:5000/api/strats/maps/${strat.mapId}`);
+const maps = await map.json();
 
-
-export default {
-    data: new SlashCommandBuilder().setName('strats').setDescription('Test'),
-    async execute(interaction) {
-
-    console.log(map);
-// 
     let dickins = strat.description;
     if(dickins == ''){
         dickins = 'No descrtion set.'
     } else {
         dickins = strat.description
     }
+
+
+
+
+export default {
+    data: new SlashCommandBuilder().setName('strats').setDescription('test'),
+    async execute(interaction) {
+    const target = interaction.options.getUser('target');
+    console.log(target);
+    console.log(maps);
+// 
 // 
 
 // embed
@@ -31,7 +36,7 @@ export default {
 	.setDescription(dickins)
 	.addFields(
 		{ name: 'Strategy ID', value: String(strat.id) },
-		{ name: 'Map', value: 'Some value here', inline: true },
+		{ name: 'Map', value: String(maps.name), inline: true },
 		{ name: 'Inline field title', value: 'Some value here', inline: true },
 	)
 	.setTimestamp()
