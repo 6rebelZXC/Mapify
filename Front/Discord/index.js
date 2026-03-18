@@ -1,6 +1,6 @@
 import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
 import TOKEN from './authds.json' with {"type": "json"};
-import request from 'request';
+// import request from 'request';
 
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -13,19 +13,24 @@ const {tokends} = TOKEN;
 const CLIENT_ID = "1482073842724896959";
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+export default client;
 // Dzend
+
+
 
 // Filesystem (fs)
 
 client.commands = new Collection();
 
+// commands
 
-const foldersPath = path.join(__dirname, 'cmds');
-const commandFolders = fs.readdirSync(foldersPath);
+const foldersPathCmds = path.join(__dirname, 'cmds');
+const commandFoldersCmds = fs.readdirSync(foldersPathCmds);
 
 (async () => {
-  for (const folder of commandFolders) {
-    const commandsPath = path.join(foldersPath, folder);
+  for (const folder of commandFoldersCmds) {
+    const commandsPath = path.join(foldersPathCmds, folder);
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
     for (const file of commandFiles) {
@@ -43,77 +48,29 @@ const commandFolders = fs.readdirSync(foldersPath);
   }
 })();
 
-// Fsend
-
 // Events
 
-// Startup
-client.on(Events.ClientReady, readyClient => {
-  console.log(`Logged in as ${readyClient.user.tag}!`);
-});
+const eventsPath = path.join(__dirname, 'Events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
-// Interaction - Message
-client.on(Events.InteractionCreate, async interaction => {
-  if (!interaction.isChatInputCommand()) return;
-  if(interaction.user.bot) return;
+(async () => {
+  for (const file of eventFiles) {
+    const filePath = path.join(eventsPath, file);
 
-  const command = interaction.client.commands.get(interaction.commandName);
-	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
-		return;
-	}
-	try {
-		await command.execute(interaction);
-	} catch (error) {
-		console.error(error);
-		if (interaction.replied || interaction.deferred) {
-			await interaction.followUp({
-				content: 'There was an error while executing this command!',
-				flags: MessageFlags.Ephemeral,
-			});
-		} else {
-			await interaction.reply({
-				content: 'There was an error while executing this command!',
-				flags: MessageFlags.Ephemeral,
-			});
-		}
-	}
+    const eventModule = await import(`file://${filePath}`);
+  }
+})();
+// Fsend
 
-});
 
 // Eventsend
 
 client.login(tokends);
 
-
 import { REST, Routes } from 'discord.js';
 
-const commands = [
-  {
-    name: 'ping',
-    description: 'Replies with Pong!',
-  },
-];
-
-// var myJSONObject = { name:'moyhuy',VideoUrl:'mybigpensil',MapName:'Oregon'};
-// console.log(myJSONObject)
-// request({
-//     url: "http://localhost:5000/api/strats",
-//     method: "POST",
-//     json: true,
-//     body: myJSONObject
-// }, function (error, response, body){
-//     if (error) {
-//         console.error('Ошибка:', error);
-//     } else if (response.statusCode !== 200) {
-//         console.error('Статус ответа:', response.statusCode);
-//         console.log('Ответ тела:', body);
-//     } else {
-//         console.log('Успех:', body);
-//     }
-// });
-
-
+import cmdss from './lists/commands.json' with {"type": "json"}
+const commands = cmdss;
 
 const rest = new REST({ version: '10' }).setToken(tokends);
 
