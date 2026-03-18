@@ -70,10 +70,10 @@ public class DatabaseService
         db.Query(sql, new { id = id });
     }
 
-    public string? GetMapById(int id)
+    public Map? GetMapById(int id)
     {
         using SqliteConnection db = GetConnection();
         string sql = "SELECT name FROM maps WHERE id=:id";
-        return db.QuerySingleOrDefault<string>(sql, new { id = id });
+        return db.QuerySingleOrDefault<Map>(sql, new { id = id });
     }
 }

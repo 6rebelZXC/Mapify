@@ -42,7 +42,7 @@ public class StratsController : ControllerBase
     {
         try
         {
-            string? mapName = _db.GetMapById(id);
+            Map? mapName = _db.GetMapById(id);
             if (mapName == null) return NotFound(new { message = $"Map by id {id} not found" });
             return Ok(mapName);
         }
