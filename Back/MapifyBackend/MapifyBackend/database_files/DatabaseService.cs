@@ -124,9 +124,9 @@ public class DatabaseService
     public List<Strat>? GetStratsByCategory(int categoryId)
     {
         using SqliteConnection db = GetConnection();
-        string sql = "SELECT s.id, s.name, s.video_url AS videoUrl, s.map_id AS mapId, s.description" +
-                     " FROM strats s" +
-                     "JOIN strat_categories sc ON s.id = sc.strat_id" +
+        string sql = "SELECT s.id, s.name, s.video_url AS videoUrl, s.map_id AS mapId, s.description " +
+                     "FROM strats s " +
+                     "JOIN strat_categories sc ON s.id = sc.strat_id " +
                      "WHERE sc.category_id = @categoryId";
         return db.Query<Strat>(sql, new { categoryId = categoryId }).ToList();
     }

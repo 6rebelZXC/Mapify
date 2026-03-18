@@ -2,21 +2,12 @@
 
 public class Map
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
+    public int Id { get; private set; }
+    public string Name { get; private set; }
     
-    public void SetId(int id)
-    {
-        Id = id;
-    }
+    public Map() { }
+    public Map(int id, string name) { Id = id; Name = name; }
     
-    public void ChangeMapName(string mapName)
-    {
-        Name = mapName;
-    }
-
-    public Map()
-    {
-        
-    }
+    public void SetId(int id) { Id = id; }
+    public void SetName(string name) { Name = name; }
 }

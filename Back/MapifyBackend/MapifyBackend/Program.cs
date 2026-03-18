@@ -9,6 +9,7 @@ DatabaseInitializer.EnsureDatabaseCreated();
 // Register services
 builder.Services.AddSingleton<DatabaseService>(); // One for all time
 builder.Services.AddScoped<StratService>();     // Gets created for each request
+builder.Services.AddScoped<CategoryService>(); // same
 
 // add Cors and controllers support
 builder.Services.AddControllers();
