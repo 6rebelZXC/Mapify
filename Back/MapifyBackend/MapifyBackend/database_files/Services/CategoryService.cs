@@ -33,4 +33,9 @@ public class CategoryService
         _db.DeleteCategory(id);
         return true;
     }
+
+    public string? GetCategoryNameById(int id)
+    {
+        return _db.GetCategoryNameById(id);
+    }
 }

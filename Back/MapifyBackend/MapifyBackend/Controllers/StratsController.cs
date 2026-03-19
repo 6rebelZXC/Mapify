@@ -79,6 +79,20 @@ public class StratsController : ControllerBase
         if (!_stratService.DeleteStrat(id)) return NotFound(new { message = $"Strat by ID {id} was not found" });
         return Ok(new { message = "Strategy deleted!" });
     }
+
+    [HttpGet("{stratId}/{categoryId}")]
+    public IActionResult AssignStratToCategory(int stratId, int categoryId)
+    {
+        _stratService.AssignStratToCategory(stratId, categoryId);
+        return Ok(new {message = "Strat assigned"});
+    }
+
+    [HttpGet("/category/{id}")]
+    public IActionResult GetStratsByCategory(int id)
+    {
+        if (_stratService.GetStratsByCategory(id) == null) return NotFound(new { message = $"Strat by ID {id} was not found" });
+        return Ok();
+    }
 }
 
 // Assistant class for API to understand the format of a request
