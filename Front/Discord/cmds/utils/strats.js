@@ -7,12 +7,12 @@ const strat = data.find(item => item.id === 1);
 const map = await fetch(`http://localhost:5000/api/strats/maps/${strat.mapId}`);
 const maps = await map.json();
 
-    let dickins = strat.description;
-    if(dickins == ''){
-        dickins = 'No descrtion set.'
-    } else {
-        dickins = strat.description
-    }
+let dickins = strat.description;
+if(dickins == ''){
+    dickins = 'No description set.'
+} else {
+    dickins = strat.description
+}
 
 
 

@@ -1,5 +1,6 @@
 import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
 import TOKEN from './authds.json' with {"type": "json"};
+import USERID from './authds.json' with {"type": "json"};
 // import request from 'request';
 
 import fs from 'fs';
@@ -10,7 +11,7 @@ import path from 'path';
 
 // Dz
 const {tokends} = TOKEN;
-const CLIENT_ID = "1482073842724896959";
+const {userid} = USERID;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -78,7 +79,7 @@ const rest = new REST({ version: '10' }).setToken(tokends);
 try {
   console.log('Started refreshing application (/) commands.');
 
-  await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+  await rest.put(Routes.applicationCommands(userid), { body: commands });
 
   console.log('Successfully reloaded application (/) commands.');
 } catch (error) {
