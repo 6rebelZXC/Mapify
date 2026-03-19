@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MapifyBackend.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class CategoriesController : ControllerBase
 {
     private readonly DatabaseService _db;
@@ -65,9 +67,10 @@ public class CategoriesController : ControllerBase
     [HttpGet("category_name/{id}")]
     public IActionResult GetName(int id)
     {
-        if (_categoryService.GetCategoryNameById(id) == null)
+        string? name = _categoryService.GetCategoryNameById(id);
+        if (name == null)
             return NotFound(new { message = $"Category by id {id} was not found" });
-        return Ok();
+        return Ok(name);
     }
 
     public class CategoryRequest

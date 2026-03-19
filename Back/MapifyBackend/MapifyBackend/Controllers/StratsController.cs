@@ -80,18 +80,20 @@ public class StratsController : ControllerBase
         return Ok(new { message = "Strategy deleted!" });
     }
 
-    [HttpGet("{stratId}/{categoryId}")]
+    [HttpPost("{stratId}/{categoryId}")]
     public IActionResult AssignStratToCategory(int stratId, int categoryId)
     {
         _stratService.AssignStratToCategory(stratId, categoryId);
         return Ok(new {message = "Strat assigned"});
     }
 
-    [HttpGet("/category/{id}")]
+    [HttpGet("category/{id}")]
     public IActionResult GetStratsByCategory(int id)
     {
-        if (_stratService.GetStratsByCategory(id) == null) return NotFound(new { message = $"Strat by ID {id} was not found" });
-        return Ok();
+        var strats = _stratService.GetStratsByCategory(id);
+        if (strats == null || strats.Count == 0) 
+            return NotFound(new { message = $"No strats found in category {id}" });
+        return Ok(strats);  
     }
 }
 
