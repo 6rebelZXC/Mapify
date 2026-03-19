@@ -1,5 +1,6 @@
 ﻿using MapifyBackend.database_files;
 using MapifyBackend.Utility;
+using MapifyBackend.Utility.DTOs;
 using MapifyBackend.Utility.Enums;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,12 +71,8 @@ public class CategoriesController : ControllerBase
         string? name = _categoryService.GetCategoryNameById(id);
         if (name == null)
             return NotFound(new { message = $"Category by id {id} was not found" });
-        return Ok(name);
+        return Ok(new { name = name });
     }
 
-    public class CategoryRequest
-    {
-        public string Name { get; set; }
-        public string Side { get; set; }
-    }
+    
 }

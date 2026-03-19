@@ -1,5 +1,6 @@
 ﻿using MapifyBackend.database_files;
 using MapifyBackend.Utility;
+using MapifyBackend.Utility.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapifyBackend.Controllers;
@@ -83,8 +84,15 @@ public class StratsController : ControllerBase
     [HttpPost("{stratId}/{categoryId}")]
     public IActionResult AssignStratToCategory(int stratId, int categoryId)
     {
-        _stratService.AssignStratToCategory(stratId, categoryId);
-        return Ok(new {message = "Strat assigned"});
+        try
+        {
+            _stratService.AssignStratToCategory(stratId, categoryId);
+            return Ok(new { message = "Strat assigned" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
     }
 
     [HttpGet("category/{id}")]
@@ -98,9 +106,4 @@ public class StratsController : ControllerBase
 }
 
 // Assistant class for API to understand the format of a request
-public class StratRequest
-{
-    public string Name { get; set; }
-    public string VideoUrl { get; set; }
-    public string MapName { get; set; }
-}
+

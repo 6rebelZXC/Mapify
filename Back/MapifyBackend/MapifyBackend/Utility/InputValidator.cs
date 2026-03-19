@@ -1,4 +1,5 @@
 ﻿using MapifyBackend.Controllers;
+using MapifyBackend.Utility.DTOs;
 
 namespace MapifyBackend.Utility;
 
@@ -25,7 +26,7 @@ public static class InputValidator
         ValidateString(request.MapName, "MapName", 100);
     }
 
-    public static void ValidateCategoryRequest(CategoriesController.CategoryRequest request)
+    public static void ValidateCategoryRequest(CategoryRequest request)
     {
         ValidateString(request.Name, "Name", 100);
         ValidateString(request.Side, "Side", 7);
