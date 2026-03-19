@@ -102,7 +102,7 @@ public class DatabaseService
     {
         using SqliteConnection db = GetConnection();
         string sql = "INSERT INTO categories (name, side) " +
-                     "VALUES (@name, @side) " +
+                     "VALUES (@name, @side); " +
                      "SELECT last_insert_rowid(); ";
         int newId = db.QuerySingle<int>(sql, new
         {

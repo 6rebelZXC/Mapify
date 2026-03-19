@@ -1,5 +1,4 @@
-﻿using MapifyBackend.Controllers;
-using MapifyBackend.Utility.DTOs;
+﻿using MapifyBackend.Utility.DTOs;
 
 namespace MapifyBackend.Utility;
 
