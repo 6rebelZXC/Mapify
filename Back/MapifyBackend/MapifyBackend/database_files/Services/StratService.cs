@@ -43,4 +43,9 @@ public class StratService
     {
         DbService.AssignStratToCategory(stratId, categoryId);
     }
+
+    public List<Strat>? GetStratsByCategory(int categoryId)
+    {
+        return DbService.GetStratsByCategory(categoryId);
+    }
 }

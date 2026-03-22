@@ -1,5 +1,6 @@
 ﻿using MapifyBackend.database_files;
 using MapifyBackend.Utility;
+using MapifyBackend.Utility.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapifyBackend.Controllers;
@@ -79,12 +80,30 @@ public class StratsController : ControllerBase
         if (!_stratService.DeleteStrat(id)) return NotFound(new { message = $"Strat by ID {id} was not found" });
         return Ok(new { message = "Strategy deleted!" });
     }
+
+    [HttpPost("{stratId}/{categoryId}")]
+    public IActionResult AssignStratToCategory(int stratId, int categoryId)
+    {
+        try
+        {
+            _stratService.AssignStratToCategory(stratId, categoryId);
+            return Ok(new { message = "Strat assigned" });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+
+    [HttpGet("category/{id}")]
+    public IActionResult GetStratsByCategory(int id)
+    {
+        var strats = _stratService.GetStratsByCategory(id);
+        if (strats == null || strats.Count == 0) 
+            return NotFound(new { message = $"No strats found in category {id}" });
+        return Ok(strats);  
+    }
 }
 
 // Assistant class for API to understand the format of a request
-public class StratRequest
-{
-    public string Name { get; set; }
-    public string VideoUrl { get; set; }
-    public string MapName { get; set; }
-}
+
