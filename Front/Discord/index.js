@@ -59,6 +59,13 @@ const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'
     const filePath = path.join(eventsPath, file);
 
     const eventModule = await import(`file://${filePath}`);
+    const event = eventModule.default ?? eventModule;
+
+    if (event.once) {
+      client.once(event.name, (...args) => event.execute(...args));
+    } else {
+      client.on(event.name, (...args) => event.execute(...args));
+    }
   }
 })();
 // Fsend

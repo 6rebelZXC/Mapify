@@ -5,6 +5,63 @@
   },
   {
     "name": "strats",
-    "description": "Test"
-  }
+    "description": "Test",
+     "options": [
+    {
+      "name": "id",
+      "description": "Choose strat ID",
+      "type": 4,
+      "required": true,
+      "min_value": 1,
+      "max_value": 8
+    }
+  ]
+  },
+  {
+  "name": "strats-list",
+  "description": "Show all strats grouped by maps"
+ },
+  {
+    "name": "strat-delete",
+    "description": "Delete strategy",
+    "options": [
+      {
+        "name": "id",
+        "description": "Strategy ID",
+        "type": 4,
+        "required": true
+      }
+    ]
+  },
+ {
+  "name": "strat-add",
+  "description": "Add new strategy",
+  "options": [
+    {
+      "name": "name",
+      "description": "Strategy name",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "video",
+      "description": "Video URL",
+      "type": 3,
+      "required": true
+    },
+    {
+      "name": "map",
+      "description": "Map ID",
+      "type": 4,
+      "required": true,
+      "choices": [
+        { "name": "Oregon", "value": 1 },
+        { "name": "Coastline", "value": 2 },
+        { "name": "Clubhouse", "value": 3 },
+        { "name": "Bank", "value": 4 }
+      ]
+    }
+  ]
+}
+
 ]

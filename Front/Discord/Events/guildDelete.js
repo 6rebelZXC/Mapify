@@ -14,7 +14,7 @@ client.on(Events.GuildDelete, async (guild) => {
         )
         .setTimestamp()
 
-    const channelId = '1484107483818492055';
+    const channelId = '1446991723384279134';
 
     try {
         const channel = await client.channels.fetch(channelId);
